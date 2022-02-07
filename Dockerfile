@@ -6,20 +6,20 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["src/BiziBuddyBackend.Web/BiziBuddyBackend.Web.csproj", "src/BiziBuddyBackend.Web/"]
-COPY ["src/BiziBuddyBackend.Infrastructure/BiziBuddyBackend.Infrastructure.csproj", "src/BiziBuddyBackend.Infrastructure/"]
-COPY ["src/BiziBuddyBackend.SharedKernel/BiziBuddyBackend.SharedKernel.csproj", "src/BiziBuddyBackend.SharedKernel/"]
-COPY ["src/BiziBuddyBackend.Core/BiziBuddyBackend.Core.csproj", "src/BiziBuddyBackend.Core/"]
-RUN dotnet restore "src/BiziBuddyBackend.Web/BiziBuddyBackend.Web.csproj"
+COPY ["src/ECommerceBackend.Web/ECommerceBackend.Web.csproj", "src/ECommerceBackend.Web/"]
+COPY ["src/ECommerceBackend.Infrastructure/ECommerceBackend.Infrastructure.csproj", "src/ECommerceBackend.Infrastructure/"]
+COPY ["src/ECommerceBackend.SharedKernel/ECommerceBackend.SharedKernel.csproj", "src/ECommerceBackend.SharedKernel/"]
+COPY ["src/ECommerceBackend.Core/ECommerceBackend.Core.csproj", "src/ECommerceBackend.Core/"]
+RUN dotnet restore "src/ECommerceBackend.Web/ECommerceBackend.Web.csproj"
 COPY . .
-WORKDIR "/src/src/BiziBuddyBackend.Web"
-RUN dotnet build "BiziBuddyBackend.Web.csproj" -c Release -o /app/build
+WORKDIR "/src/src/ECommerceBackend.Web"
+RUN dotnet build "ECommerceBackend.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BiziBuddyBackend.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "ECommerceBackend.Web.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-# ENTRYPOINT ["dotnet", "BiziBuddyBackend.Web.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet BiziBuddyBackend.Web.dll
+# ENTRYPOINT ["dotnet", "ECommerceBackend.Web.dll"]
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet ECommerceBackend.Web.dll
