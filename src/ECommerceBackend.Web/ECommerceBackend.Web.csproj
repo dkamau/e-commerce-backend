@@ -46,4 +46,10 @@
     </Compile>
   </ItemGroup>
   
+  <ItemGroup>
+    <None Update="EmailTemplates\OrderedProducts.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
 </Project>
